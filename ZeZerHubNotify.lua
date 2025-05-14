@@ -1,9 +1,9 @@
 local StarterGui = game:GetService("StarterGui")
 
 StarterGui:SetCore("SendNotification", {
-    Title = "MARU HUB",
+    Title = "ZeZer Hub",
     Text = "Remove workspace files?",
-    Image = "rbxassetid://103221616248663",
+    Image = "rbxassetid://6031280882", -- Roblox friend icon
     Button1 = "Yes",
     Button2 = "No",
     Duration = 10
