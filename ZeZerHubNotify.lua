@@ -2,65 +2,41 @@ local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 gui.Name = "ZeZerHubNotification"
 
--- Main frame
 local frame = Instance.new("Frame", gui)
 frame.Size = UDim2.new(0, 300, 0, 100)
-frame.Position = UDim2.new(0.5, -150, 0.5, -50)
+frame.Position = UDim2.new(1, -310, 1, -110)
+frame.AnchorPoint = Vector2.new(1, 1)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BackgroundTransparency = 0.2
 frame.BorderSizePixel = 0
+frame.ClipsDescendants = true
+frame.Name = "NotificationFrame"
 
--- Image (replace with your uploaded asset ID)
 local image = Instance.new("ImageLabel", frame)
-image.Size = UDim2.new(0, 40, 0, 40)
-image.Position = UDim2.new(0, 10, 0, 10)
+image.Size = UDim2.new(0, 80, 0, 80)
+image.Position = UDim2.new(0, 10, 0.5, -40)
+image.Image = "rbxassetid://103221616248663"
 image.BackgroundTransparency = 1
-image.Image = "rbxassetid://103221616248663" -- Replace with your logo’s asset ID
 
--- Title
 local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(0, 200, 0, 30)
+title.Position = UDim2.new(0, 100, 0, 10)
 title.Text = "ZeZer Hub"
-title.Font = Enum.Font.SourceSansBold
-title.TextSize = 20
-title.Size = UDim2.new(1, -60, 0, 25)
-title.Position = UDim2.new(0, 60, 0, 10)
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextColor3 = Color3.new(1, 1, 1)
+title.TextScaled = true
 title.BackgroundTransparency = 1
-title.TextXAlignment = Enum.TextXAlignment.Left
+title.Font = Enum.Font.GothamBold
 
--- Message
 local message = Instance.new("TextLabel", frame)
-message.Text = "Script has been looad..."
-message.Font = Enum.Font.SourceSans
-message.TextSize = 16
-message.Size = UDim2.new(1, -20, 0, 20)
-message.Position = UDim2.new(0, 60, 0, 35)
-message.TextColor3 = Color3.fromRGB(200, 200, 200)
+message.Size = UDim2.new(0, 200, 0, 50)
+message.Position = UDim2.new(0, 100, 0, 40)
+message.Text = "Script has been loaad..."
+message.TextColor3 = Color3.new(1, 1, 1)
+message.TextScaled = true
 message.BackgroundTransparency = 1
-message.TextXAlignment = Enum.TextXAlignment.Left
+message.Font = Enum.Font.Gotham
 
--- Yes button
-local yesButton = Instance.new("TextButton", frame)
-yesButton.Text = "Yes"
-yesButton.Size = UDim2.new(0.5, -5, 0, 30)
-yesButton.Position = UDim2.new(0, 5, 1, -35)
-yesButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-yesButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
--- No button
-local noButton = Instance.new("TextButton", frame)
-noButton.Text = "No"
-noButton.Size = UDim2.new(0.5, -5, 0, 30)
-noButton.Position = UDim2.new(0.5, 0, 1, -35)
-noButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-noButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
--- Button actions
-yesButton.MouseButton1Click:Connect(function()
-    print("User clicked Yes")
-    gui:Destroy()
-end)
-
-noButton.MouseButton1Click:Connect(function()
-    print("User clicked No")
+-- Auto remove after 10 seconds
+task.delay(10, function()
     gui:Destroy()
 end)
