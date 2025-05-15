@@ -1,1 +1,1 @@
-# ZezerHubnotify
+# Zezerscript
