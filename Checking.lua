@@ -5,9 +5,7 @@ print("Starting ZeZer Hub loader...")
 
 -- Simulated loading stages
 local loadingStages = {
-    "Checking ui bug...",
-    "Initializing UI...",
-    "Finalizing..."
+    "Loading..."
 }
 
 for i, stage in ipairs(loadingStages) do
@@ -15,4 +13,4 @@ for i, stage in ipairs(loadingStages) do
     wait(1.5) -- simulate loading time
 end
 
-print("✅ ZeZer Hub loaded successfully!")
+print("ZeZer Hub loaded successfully!")
