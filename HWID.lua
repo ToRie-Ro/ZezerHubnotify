@@ -1,64 +1,64 @@
-local allowedHWIDs = {
-    "HuOOgIEtdCzIldrADhiEPLaRgqemRlNS",  -- allowed HWID example
-    "s6ozpqv2Kam0cCT9LhCX",
-    "ayzG93WcQdyXiWvee9RC",
-    "Zswvivi8VF0b2UHIrKGL",
-    "f8vhDA61kw5YbeS8eCGB",
-    "sLrmn0i4psNko0Itw0ZA",
-    "nD3k2w3eIbxs9EbfD7en",
-    "P2sIpoWWTIv1LADMGceG",
-    "wmimZSdumwduSv9WoEP2",
-    "UDhYstadp1ico2PDQHLD",
-    "HwQSAMkeD2ZjG0iGUwuV",
-    "lB9aBwidrMk3q8NkDptB",
-    "ux5Z7n7UvXmfJzyO8Kug",
-    "Qb8RHM01t3kPUVMn6VBs",
-    "rBkjSnZ6GJb4we1fmpwt",
-    "Uw6WW1rFDRdJeDEaWaSE",
-}
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local hwidEvent = Instance.new("RemoteEvent")
-hwidEvent.Name = "HWIDCheckEvent"
-hwidEvent.Parent = ReplicatedStorage
+-- Create RemoteEvent if it doesn't exist
+local hwidEvent = ReplicatedStorage:FindFirstChild("HWIDCheckEvent")
+if not hwidEvent then
+    hwidEvent = Instance.new("RemoteEvent")
+    hwidEvent.Name = "HWIDCheckEvent"
+    hwidEvent.Parent = ReplicatedStorage
+end
 
--- Keep track of which HWIDs are currently used
+-- Allowed HWIDs table (using keys for fast lookup)
+local allowedHWIDs = {
+    ["HuOOgIEtdCzIldrADhiEPLaRgqemRlNS"] = true,  
+    ["s6ozpqv2Kam0cCT9LhCX"] = true,
+    ["ayzG93WcQdyXiWvee9RC"] = true,
+    ["Zswvivi8VF0b2UHIrKGL"] = true,
+    ["f8vhDA61kw5YbeS8eCGB"] = true,
+    ["sLrmn0i4psNko0Itw0ZA"] = true,
+    ["nD3k2w3eIbxs9EbfD7en"] = true,
+    ["P2sIpoWWTIv1LADMGceG"] = true,
+    ["wmimZSdumwduSv9WoEP2"] = true,
+    ["UDhYstadp1ico2PDQHLD"] = true,
+    ["HwQSAMkeD2ZjG0iGUwuV"] = true,
+    ["lB9aBwidrMk3q8NkDptB"] = true,
+    ["ux5Z7n7UvXmfJzyO8Kug"] = true,
+    ["Qb8RHM01t3kPUVMn6VBs"] = true,
+    ["rBkjSnZ6GJb4we1fmpwt"] = true,
+    ["Uw6WW1rFDRdJeDEaWaSE"] = true,
+}
+
+-- Track active HWIDs so no double usage
 local activeHWIDs = {}
 
+-- Function to check if HWID allowed
 local function isHWIDAllowed(hwid)
-    for _, key in ipairs(allowedHWIDs) do
-        if hwid == key then
-            return true
-        end
-    end
-    return false
+    return allowedHWIDs[hwid] == true
 end
 
 hwidEvent.OnServerEvent:Connect(function(player, hwid)
-    if not isHWIDAllowed(hwid) then
+    if not hwid or type(hwid) ~= "string" then
         player:Kick("Invalid HWID")
         return
     end
 
-    if activeHWIDs[hwid] then
-        -- Someone else is already using this HWID
-        player:Kick("Report Admin Script Your HWID")
+    if not isHWIDAllowed(hwid) then
+        player:Kick("Reset HWID")
         return
     end
 
-    -- Mark this HWID as active for this player
-    activeHWIDs[hwid] = player
+    if activeHWIDs[hwid] then
+        player:Kick("HWID already in use")
+        return
+    end
 
+    activeHWIDs[hwid] = player
     print(player.Name .. " logged in with HWID: " .. hwid)
 
-    -- Remove HWID from active list when player leaves
     player.AncestryChanged:Connect(function(_, parent)
-        if not parent then
-            if activeHWIDs[hwid] == player then
-                activeHWIDs[hwid] = nil
-                print("HWID " .. hwid .. " released as player left")
-            end
+        if not parent and activeHWIDs[hwid] == player then
+            activeHWIDs[hwid] = nil
+            print("HWID " .. hwid .. " released as player left")
         end
     end)
 end)
