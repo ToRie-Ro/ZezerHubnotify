@@ -50,7 +50,7 @@ do
     
     local Toggle = Tabs.Plant:AddToggle("Autoplant", {Title = "Auto Plant", Default = false })
 
-    Toggle:OnChanged(function()
+    Toggle:OnChanged(function(value)
         -- Function
     end)
 
