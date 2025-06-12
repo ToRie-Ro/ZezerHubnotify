@@ -1,6 +1,5 @@
 local ZeZerHubCh = loadstring(game:HttpGet("https://raw.githubusercontent.com/ToRie-Ro/Zezerscript/refs/heads/main/Checking.lua"))()
 local ZeZerHubNotify = loadstring(game:HttpGet("https://raw.githubusercontent.com/ToRie-Ro/Zezerscript/refs/heads/main/ZeZerHubNotify.lua"))()
-local HWID = loadstring(game:HttpGet("https://raw.githubusercontent.com/ToRie-Ro/Zezerscript/refs/heads/main/HWID.lua"))()
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/ToRie-Ro/Zezerscript/refs/heads/main/Save.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/ToRie-Ro/Zezerscript/refs/heads/main/Interface.lua"))()
@@ -20,7 +19,7 @@ local Window = Fluent:CreateWindow({
 local Tabs = {
     Plant = Window:AddTab({ Title = "Auto Plant", Icon = "" }),
     Sell = Window:AddTab({ Title = "Tab Sell", Icon = "" }),
-    LocalPlayer = Window:AddTab({ Title = "Local Player", Icon = "" }),
+    Player = Window:AddTab({ Title = "Local Player", Icon = "" }),
 }
 
 local Options = Fluent.Options
@@ -48,13 +47,39 @@ do
             game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("Sell_Item"):FireServer()
         end,
     })
-
     
     local Toggle = Tabs.Plant:AddToggle("Autoplant", {Title = "Auto Plant", Default = false })
 
     Toggle:OnChanged(function()
         -- Function
     end)
+
+        Tabs.Sell:AddButton({
+        Title = "Hop Server",
+        Description = "",
+        Callback = function()
+        local TeleportService = game:GetService("TeleportService")
+        local HttpService = game:GetService("HttpService")
+        local PlaceId = game.PlaceId
+
+        local success, response = pcall(function()
+            return HttpService:JSONDecode(
+                game:HttpGet("https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")
+            )
+        end)
+
+        if success and response and response.data then
+            for _, server in pairs(response.data) do
+                if server.playing < server.maxPlayers and server.id ~= game.JobId then
+                    TeleportService:TeleportToPlaceInstance(PlaceId, server.id, game.Players.LocalPlayer)
+                    break
+                end
+            end
+        else
+            warn("Failed to get server list.")
+        end
+        end,
+    })
 
 end
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config
