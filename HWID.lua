@@ -1,20 +1,20 @@
 local allowedHWIDs = {
     "HuOOgIEtdCzIldrADhiEPLaRgqemRlNS",  -- allowed HWID example
-    "s6ozpqv2Kam0cCT9LhCX"
-    "ayzG93WcQdyXiWvee9RC"
-    "Zswvivi8VF0b2UHIrKGL"
-    "f8vhDA61kw5YbeS8eCGB"
-    "sLrmn0i4psNko0Itw0ZA"
-    "nD3k2w3eIbxs9EbfD7en"
-    "P2sIpoWWTIv1LADMGceG"
-    "wmimZSdumwduSv9WoEP2"
-    "UDhYstadp1ico2PDQHLD"
-    "HwQSAMkeD2ZjG0iGUwuV"
-    "lB9aBwidrMk3q8NkDptB"
-    "ux5Z7n7UvXmfJzyO8Kug"
-    "Qb8RHM01t3kPUVMn6VBs"
-    "rBkjSnZ6GJb4we1fmpwt"
-    "Uw6WW1rFDRdJeDEaWaSE"
+    "s6ozpqv2Kam0cCT9LhCX",
+    "ayzG93WcQdyXiWvee9RC",
+    "Zswvivi8VF0b2UHIrKGL",
+    "f8vhDA61kw5YbeS8eCGB",
+    "sLrmn0i4psNko0Itw0ZA",
+    "nD3k2w3eIbxs9EbfD7en",
+    "P2sIpoWWTIv1LADMGceG",
+    "wmimZSdumwduSv9WoEP2",
+    "UDhYstadp1ico2PDQHLD",
+    "HwQSAMkeD2ZjG0iGUwuV",
+    "lB9aBwidrMk3q8NkDptB",
+    "ux5Z7n7UvXmfJzyO8Kug",
+    "Qb8RHM01t3kPUVMn6VBs",
+    "rBkjSnZ6GJb4we1fmpwt",
+    "Uw6WW1rFDRdJeDEaWaSE",
 }
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
