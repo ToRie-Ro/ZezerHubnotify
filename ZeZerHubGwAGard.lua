@@ -50,11 +50,10 @@ do
     })
 
     
-    local Toggle = Tabs.Plant:AddToggle("Autoplant", {Title = "Auto Plant", Default = false })
-
-    Toggle:OnChanged(function(value)
-        -- Function
-    end)
+    Tabs.Plant:AddParagraph({
+        Title = "Bete",
+        Content = "..."
+    })
 
         Tabs.Player:AddButton({
         Title = "Hop Server",
@@ -259,6 +258,60 @@ do
         end,
     })       
     
+        Tabs.Shop:AddButton({
+        Title = "Close Honey UI",
+        Description = "",
+        Callback = function()
+			local player = game:GetService("Players").LocalPlayer
+			local playerGui = player:FindFirstChild("PlayerGui")
+
+			if playerGui then
+				local honeyUI = playerGui:FindFirstChild("HoneyEventShop_UI")
+				if honeyUI and honeyUI:IsA("ScreenGui") then
+					honeyUI.Enabled = false
+				end
+			end
+		end
+	})
+
+        Tabs.Shop:AddButton({
+        Title = "Close Seed UI",
+        Description = "",
+        Callback = function()
+			local player = game:GetService("Players").LocalPlayer
+			local playerGui = player:WaitForChild("PlayerGui")
+			local seedShopUI = playerGui:FindFirstChild("Seed_Shop")
+
+			if seedShopUI then
+				seedShopUI.Enabled = false
+
+				local frame = seedShopUI:FindFirstChild("Frame")
+				if frame then
+					frame.Visible = false
+				end
+			end
+		end	
+	})
+
+        Tabs.Shop:AddButton({
+        Title = "Close Gear UI",
+        Description = "",
+        Callback = function()
+			local player = game:GetService("Players").LocalPlayer
+			local playerGui = player:WaitForChild("PlayerGui")
+			local gearShopUI = playerGui:FindFirstChild("Gear_Shop")
+
+			if gearShopUI then
+				gearShopUI.Enabled = false
+
+				local frame = gearShopUI:FindFirstChild("Frame")
+				if frame then
+					frame.Visible = false
+				end
+			end
+		end	
+	})
+
 end
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config
 -- which has been marked to be one that auto loads!
